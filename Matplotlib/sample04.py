@@ -1,17 +1,22 @@
-from define04 import InputData, WrightFile, WrightCSV, ReadCSV
+from define04 import *
 
 while True:
-    print("0:追加, 1:閲覧")
-    val = InputData()
-    print(val)
+    val = InputData("0:追加, 1:閲覧 => ")
     if val == 0:
         print("追加")
-        data = InputData()
-        WrightCSV(data)
+        csv_values = ReadCSV()
+        flag = checkMonth(csv_values)
+        if flag == 0:
+            data = InputData("金額 >> ")
+            WrightCSV(data)
+        else:
+            print("今月の入力は終了しました")
         break
     elif val == 1:
         print("閲覧")
-        ReadCSV()
+        csv_values = ReadCSV()
+        month, data = SortingData(csv_values)
+        DrawingGraph(month, data)
         break
     else:
         print("error")
