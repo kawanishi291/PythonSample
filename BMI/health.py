@@ -1,13 +1,14 @@
 from defHealth import *
 
+print("健康管理")
 while True:
     val = InputData("0:追加, 1:閲覧 => ")
     if val == 0:
         print("追加")
         csv_values = ReadCSV()
-        flag = checkMonth(csv_values)
+        flag = checkDay(csv_values)
         if flag == 0:
-            data = InputData("金額 >> ")
+            data = InputData("体重(kg) >> ")
             WrightCSV(data)
         else:
             print("今月の入力は終了しました")
@@ -15,8 +16,8 @@ while True:
     elif val == 1:
         print("閲覧")
         csv_values = ReadCSV()
-        month, data = SortingData(csv_values)
-        DrawingGraph(month, data)
+        day, data = SortingData(csv_values)
+        DrawingGraph(day, data)
         break
     else:
         print("error")
