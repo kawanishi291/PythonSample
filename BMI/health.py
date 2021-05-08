@@ -11,13 +11,14 @@ while True:
             data = InputData("体重(kg) >> ")
             WrightCSV(data)
         else:
-            print("今月の入力は終了しました")
+            print("今日の入力は終了しました")
         break
     elif val == 1:
         print("閲覧")
         csv_values = ReadCSV()
         day, data = SortingData(csv_values)
-        DrawingGraph(day, data)
+        min_weight, max_weight = MinMaxWeight(data)
+        DrawingGraph(day, data, min_weight, max_weight)
         break
     else:
         print("error")
