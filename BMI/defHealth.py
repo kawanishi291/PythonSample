@@ -1,3 +1,4 @@
+import os
 import datetime
 import csv
 import pandas as pd
@@ -10,17 +11,17 @@ def InputData(msg):
     return val
 
 
-def WrightFile(data):
-    dt_now = datetime.datetime.now()
-    file_name = "check_" + str(dt_now.year) + ".txt"
-    with open(file_name, 'w') as f:
-        f.write(str(data) + "円\n")
+# def WrightFile(data):
+#     dt_now = datetime.datetime.now()
+#     file_name = "health_" + str(dt_now.year) + "_" + str(dt_now.month) + ".txt"
+#     with open(file_name, 'w') as f:
+#         f.write(str(data) + "円\n")
 
 
 def WrightCSV(data):
     dt_now = datetime.datetime.now()
-    file_name = "check_" + str(dt_now.year) + ".csv"
-    word = str(dt_now.month) + "月," + str(data)
+    file_name = "health_" + str(dt_now.year) + "_" + str(dt_now.month) + ".csv"
+    word = str(dt_now.day) + "日," + str(data)
     words = word.split(',')
     with open(file_name, 'a') as f:
         writer = csv.writer(f)
@@ -29,42 +30,57 @@ def WrightCSV(data):
 
 def ReadCSV():
     dt_now = datetime.datetime.now()
-    file_name = "check_" + str(dt_now.year) + ".csv"
+    file_name = "health_" + str(dt_now.year) + "_" + str(dt_now.month) + ".csv"
+    checkFile(file_name)
     csv_input = pd.read_csv(filepath_or_buffer = file_name, encoding = "utf_8", sep = ",")
     # インプットの項目数（行数 * カラム数）を返却します。
-    #print(csv_input.size)
-    #返却される型は、numpy.ndarray
-    #print(csv_input.values)
+    # print(csv_input.size)
+    # 返却される型は、numpy.ndarray
+    # print(csv_input.values)
 
     return csv_input.values
 
 
-def checkMonth(csv_list):
+def checkDay(csv_list):
     length = len(csv_list)
-    this_month = csv_list[length-1][0]
-    dt_now = datetime.datetime.now()
-    if str(dt_now.month) + "月" == this_month:
-        return 1
+    if length > 0:
+        this_day = csv_list[length-1][0]
+        dt_now = datetime.datetime.now()
+        if str(dt_now.day) + "日" == this_day:
+            flag = 1
+        else:
+            flag = 0
     else:
-        return 0
+        flag = 0
+    
+    return flag
 
 
 def SortingData(csv_values):
-    month = []
+    day = []
     data = []
     for key, val in csv_values:
-        m = key.replace('月', '')
-        month.append(int(m))
+        m = key.replace('日', '')
+        day.append(int(m))
         data.append(val)
     
-    return month, data
+    return day, data
 
 
-def DrawingGraph(month, data):
+def DrawingGraph(day, data):
     
-    month = np.array(month)
+    day = np.array(day)
     data = np.array(data)
-    plt.plot(month, data)
-    plt.xlim([1, 13])
-    plt.ylim([0, 20000])
+    plt.plot(day, data)
+    plt.xlim([1, 31])
+    plt.ylim([20, 100])
     plt.show()
+
+
+def checkFile(filename):
+    if os.path.exists(filename) == False:
+        word = "日,体重"
+        words = word.split(',')
+        with open(filename, 'w') as f :
+            writer = csv.writer(f)
+            writer.writerow(words)
