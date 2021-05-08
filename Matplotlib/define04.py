@@ -66,5 +66,5 @@ def DrawingGraph(month, data):
     data = np.array(data)
     plt.plot(month, data)
     plt.xlim([1, 13])
-    plt.ylim([0, 2000])
+    plt.ylim([0, 20000])
     plt.show()
