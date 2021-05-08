@@ -33,10 +33,6 @@ def ReadCSV():
     file_name = "health_" + str(dt_now.year) + "_" + str(dt_now.month) + ".csv"
     checkFile(file_name)
     csv_input = pd.read_csv(filepath_or_buffer = file_name, encoding = "utf_8", sep = ",")
-    # インプットの項目数（行数 * カラム数）を返却します。
-    # print(csv_input.size)
-    # 返却される型は、numpy.ndarray
-    # print(csv_input.values)
 
     return csv_input.values
 
@@ -67,13 +63,24 @@ def SortingData(csv_values):
     return day, data
 
 
-def DrawingGraph(day, data):
-    
+def MinMaxWeight(data):
+    min_weight = data[0]
+    max_weight = data[0]
+    for weight in data:
+        if weight < min_weight:
+            min_weight = weight
+        if max_weight < weight:
+            max_weight = weight
+
+    return min_weight - 0.1, max_weight + 0.1
+
+
+def DrawingGraph(day, data, min_weight, max_weight):
     day = np.array(day)
     data = np.array(data)
     plt.plot(day, data)
     plt.xlim([1, 31])
-    plt.ylim([20, 100])
+    plt.ylim([min_weight, max_weight])
     plt.show()
 
 
