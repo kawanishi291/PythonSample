@@ -79,4 +79,8 @@ def PrintGraph(filename):
     plt.plot(date, data)
     plt.xlim([1, len(commit)])
     plt.ylim([0, 50])
+    plt.title('My GitHub Commit') # グラフのタイトル
+    plt.xlabel('days') #x軸のラベル
+    plt.ylabel('commit') #y軸のラベル
+    plt.grid(True); #グリッドの表示
     plt.show()
