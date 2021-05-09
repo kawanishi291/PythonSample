@@ -1,8 +1,9 @@
 import os
 from def05 import *
 
-msg = "あなたのGitHubのURLを入力してください >> "
-url = InputData(msg)
+msg = "あなたのGitHubのユーザ名を入力してください >> "
+user = InputData(msg)
+url = "https://github.com/" + user
 # スクレイピングしコミット数に関連する部分をリスト化
 data_list = ScrapingGitHub(url)
 
