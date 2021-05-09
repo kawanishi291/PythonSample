@@ -68,7 +68,6 @@ def WrightCSV(filename, commit_list, date_list):
             writer.writerow(words)
 
 
-
 def PrintGraph(filename):
     csv_input = pd.read_csv(filepath_or_buffer = filename, encoding = "utf_8", sep = ",")
     cnt = int(csv_input.size.item()/2) # 730(行 * 列)
