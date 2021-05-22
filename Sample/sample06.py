@@ -1,4 +1,4 @@
-from def06 import *
+from .def06 import *
 
 # TOPページ表示関数
 # ScrapingTsudanumaInfo("http://localhost/html/index.html")
