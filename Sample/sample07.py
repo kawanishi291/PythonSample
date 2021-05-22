@@ -1,4 +1,4 @@
-from def07 import *
+from .def07 import *
 
 year = int(input("西暦 => "))
 month = int(input("月 => "))
