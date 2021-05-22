@@ -1,5 +1,5 @@
 import os
-from def05 import *
+from .def05 import *
 
 msg = "あなたのGitHubのユーザ名を入力してください >> "
 user = InputData(msg)
